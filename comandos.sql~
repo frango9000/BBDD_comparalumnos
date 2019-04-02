@@ -245,9 +245,10 @@ grant select on proba to hr with grant option;
  -- en insert y updates
 grant insert (codx, nomx), update(salario) on xogador to xoan with grant option;
 
-
 -- lista de permisos de objeto de un usuario
 select * from user_tab_privs;
+
+-- permisos de usuario vistos desde admin
 select * from dba_col_privs where grantee = 'ROMANI';
 
 
