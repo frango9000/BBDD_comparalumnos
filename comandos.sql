@@ -260,3 +260,12 @@ grant create view to rola;
 grant select on hr.xogador to rola;
 
 
+select * from dba_role_privs;
+select * from dba_role_privs where grantee = 'xoan'; -- ver los roles de un usuario
+select * from dba_role_privs where granted_role = 'rola'; -- ver los usuarios que tiene un rol
+
+select * from dba_sys_privs where grantee='ROLA'; -- ver los privilegios de sistema un rol
+
+select * from dba_tab_privs where grantee='ROLA'; -- ver los privilegios de objeto de un rol
+
+

@@ -251,5 +251,12 @@ select * from user_tab_privs;
 -- permisos de usuario vistos desde admin
 select * from dba_col_privs where grantee = 'ROMANI';
 
+ ************************* roles  ************************* 
+
+
+create role rola;
+grant create session to rola;
+grant create view to rola;
+grant select on hr.xogador to rola;
 
 
