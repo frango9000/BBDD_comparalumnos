@@ -258,5 +258,21 @@ create role rola;
 grant create session to rola;
 grant create view to rola;
 grant select on hr.xogador to rola;
+grant rola to romani;
 
+
+select * from dba_role_privs;
+select * from dba_role_privs where grantee = 'xoan'; -- ver los roles de un usuario
+select * from dba_role_privs where granted_role = 'rola'; -- ver los usuarios que tiene un rol
+
+select * from dba_sys_privs where grantee='ROLA'; -- ver los privilegios de sistema un rol
+select * from dba_tab_privs where grantee='ROLA'; -- ver los privilegios de objeto de un rol
+select * from dba_col_privs where grantee='ROLA'; -- ver los privilegios de columnas de un rol
+
+ -- los privilegios de objeto no pueden ser dados con grant option a un rol
+ -- los privilegios de sistema si pueden ser dados con admin option a un rol
+
+grant create view to rola with admin option;
+
+grant rola to romani with admin options; -- romani podra dar permisos de session a otros
 
