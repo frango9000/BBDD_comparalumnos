@@ -252,7 +252,9 @@ select * from user_tab_privs;
 select * from dba_col_privs where grantee = 'ROMANI';
 
  ************************* roles  ************************* 
-
+ -- un usuario puede tener varios roles;
+ -- los privilegios de objeto no pueden ser dados con grant option a un rol
+ -- los privilegios de sistema si pueden ser dados con admin option a un rol
 
 create role rola;
 grant create session to rola;
@@ -269,10 +271,21 @@ select * from dba_sys_privs where grantee='ROLA'; -- ver los privilegios de sist
 select * from dba_tab_privs where grantee='ROLA'; -- ver los privilegios de objeto de un rol
 select * from dba_col_privs where grantee='ROLA'; -- ver los privilegios de columnas de un rol
 
- -- los privilegios de objeto no pueden ser dados con grant option a un rol
- -- los privilegios de sistema si pueden ser dados con admin option a un rol
 
+ -- romani podra dar el rola a otros
 grant create view to rola with admin option;
 
-grant rola to romani with admin options; -- romani podra dar permisos de session a otros
+
+ -- romani podra dar permisos de session a otros
+grant rola to romani with admin options;
+
+
+ -- privilegios via roles de un unico usuario
+select * from dba_sys_privs where grantee in (select granted_role from dba_role_privs where grantee = 'ROMANI');
+select * from dba_tab_privs where grantee in (select granted_role from dba_role_privs where grantee = 'ROMANI');
+select * from dba_col_privs where grantee in (select granted_role from dba_role_privs where grantee = 'ROMANI');
+
+ -- todos los permisios concedidos por roles, por public o directos
+select * from dba_sys_privs where grantee in (select granted_role from dba_role_privs where grantee = 'ROMANI') or grantee = 'PUBLIC' or grantee = 'ROMANI';
+
 
