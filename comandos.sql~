@@ -289,3 +289,29 @@ select * from dba_col_privs where grantee in (select granted_role from dba_role_
 select * from dba_sys_privs where grantee in (select granted_role from dba_role_privs where grantee = 'ROMANI') or grantee = 'PUBLIC' or grantee = 'ROMANI';
 
 
+ ************************* Importacion y Exportacion de datos  ************************* 
+
+DataPump (Oracle) Importacion y exportacion en formato propietario de oracle (encriptado)
+	EXPDP
+	IMPDP
+
+SQL-Loader (Oracle) Permite solo importar datos desde ficheros de texto planos. (No Exportar)
+
+2 Tipos de carga:
+	Carga Variable: Ficheros con delimitadores
+	Carga Fija: Ficheros con posicionamiento
+
+Para cargar normalmente se genera un fichero de carga. con extension ctl
+
+Carga Variable
+
+sqlldr <usuario>/<clave control> = <nombre de fichero>.ctl
+
+Ej
+ir al directorio
+cd dparentes
+
+sqlldr hr/hr control = cargaparentes.ctl
+
+
+

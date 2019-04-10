@@ -4,3 +4,4 @@ into table per
 fields terminated by ','
 (cod, nome, edad)
 
+

@@ -305,6 +305,13 @@ Para cargar normalmente se genera un fichero de carga. con extension ctl
 
 Carga Variable
 
-SQLLDR <usuario>/<clave control> = <nombre de fichero>.ctl
+sqlldr <usuario>/<clave control> = <nombre de fichero>.ctl
+
+Ej
+ir al directorio
+cd dparentes
+
+sqlldr hr/hr control = cargaparentes.ctl
+
 
 

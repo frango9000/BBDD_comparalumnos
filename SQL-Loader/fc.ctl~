@@ -2,5 +2,5 @@ load data
 infile f.txt
 into table per
 fields terminated by ','
-(cod, nom, edad)
+(cod, nome, edad)
 
