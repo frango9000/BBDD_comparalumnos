@@ -1,0 +1,35 @@
+SQL> select * from parentes;
+
+    NUMERO NOME     APELIDOS        S DATAN                                     
+---------- -------- --------------- - ---------                                 
+         1 Angel    Sanchez         H 29-JUL-73                                 
+         2 Maria    Gonzalez-Aller  M                                           
+         3 Maria    Sanchez         M 27-JAN-07                                 
+
+SQL> select * from xogador;
+
+COD NOMX        COD    SALARIO DATAN                                            
+--- ----------- --- ---------- ---------                                        
+x1  luis        e1        1900 03-JAN-90                                        
+x2  juan        e3        1500 13-APR-91                                        
+x3  pedro       e4        1000 12-NOV-90                                        
+x4  alberto     e2        1000 01-JUL-90                                        
+x5  juan        e1        1200 23-AUG-90                                        
+x6  luis        e1         800 12-SEP-90                                        
+x7  carlos      e3             08-OCT-90                                        
+x8  pedro       e4        3000 07-JUN-90                                        
+x9  bent        e4        1500 23-APR-90                                        
+x10 manuel      e4             25-DEC-90                                        
+x11 antonio     e3        2000 16-JUN-90                                        
+
+COD NOMX        COD    SALARIO DATAN                                            
+--- ----------- --- ---------- ---------                                        
+x12 eliseo      e4        1350 14-MAY-90                                        
+x13 juan        e2        2000 07-APR-90                                        
+x14 federico    e1        1000 05-JAN-90                                        
+x15 leon        e1        1900 27-NOV-90                                        
+x16 nombre                 100                                                  
+
+16 rows selected.
+
+SQL> spool off
