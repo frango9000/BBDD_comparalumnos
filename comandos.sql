@@ -317,3 +317,9 @@ sqlldr hr/hr control = cargaparentes.ctl
 Carga Fija
 
 
+
+
+
+ -- ASI VEMOS LA LONGITUD DE UNA CLUMNA DE UNA TABLA
+select data_type, data_length from user_tab_columns where table_name = 'PARENTES' and column_name='APELIDOS';
+

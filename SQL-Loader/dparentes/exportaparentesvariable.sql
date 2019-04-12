@@ -7,7 +7,7 @@ set trimspool on
 set termout off
 
 spool par_variable.txt
-select numero||','||nome||','||apelido||','||sexo||','||to_char(datan,'YYYMMDD') from parentes;
+select numero||','||nome||','||apelidos||','||sexo||','||to_char(datan,'YYYMMDD') from parentes;
 spool off
 
 set heading on
