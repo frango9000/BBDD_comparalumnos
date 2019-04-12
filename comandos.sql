@@ -314,4 +314,6 @@ cd dparentes
 sqlldr hr/hr control = cargaparentes.ctl
 
 
+Carga Fija
+
 

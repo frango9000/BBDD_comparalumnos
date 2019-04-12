@@ -1,0 +1,14 @@
+load data
+infile parentes_variable.txt
+into table parentes_h
+append
+when (sexo='H')
+fields terminated by ','
+trailing nullcols
+(
+numero,
+nome,
+apelidos,
+sexo filler,
+datan "to_date(:datan,'YYYYMMDD')"
+)

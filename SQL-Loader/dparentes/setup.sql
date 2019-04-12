@@ -8,7 +8,7 @@ drop table parentes_h;
 drop table parentes_m;
 
 CREATE TABLE parentes(
-numero NUMBER(6),
+numero NUMBER(6) primary key,
 nome VARCHAR2(8),
 apelidos VARCHAR2(15),
 sexo CHAR(1),
@@ -16,7 +16,7 @@ datan DATE);
 
 CREATE TABLE parentes_h
 (
-numero NUMBER(6),
+numero NUMBER(6) primary key,
 nome VARCHAR2(8),
 apelidos VARCHAR2(15),
 datan DATE
@@ -24,7 +24,7 @@ datan DATE
 
 CREATE TABLE parentes_m
 (
-numero NUMBER(6),
+numero NUMBER(6) primary key,
 nome VARCHAR2(8),
 apelidos VARCHAR2(15)
 ) ;
