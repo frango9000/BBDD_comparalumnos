@@ -323,3 +323,46 @@ Carga Fija
  -- ASI VEMOS LA LONGITUD DE UNA CLUMNA DE UNA TABLA
 select data_type, data_length from user_tab_columns where table_name = 'PARENTES' and column_name='APELIDOS';
 
+
+
+
+ ************************* Datapump: impdp y expdp ************************* 
+previo:
+buscar/crear la ruta de exportacion
+			/home/oracle/Desktop/dirdam1
+
+crear el alias (object directory) asociandole la ruta
+sys> 			create directory aliasdirdam1 as '/home/oracle/Desktop/dirdam1'
+
+dar permisos de lectura y escritura para que pueda usar el alias, a uno o mas usuarios de oracle
+			grant read, write on directory aliasdirdam1 to hr;
+
+
+expdp exportar
+crear un fichero de parametros con extension .txt
+				EJ. estimacionhr.txt
+ESTIMATE_ONLY=y
+NOLOGFILE=y
+
+
+*estimacion:calcula el espacio de lo que ocuparia el respaldom pero no realiza el respaldo
+
+
+desde terminal de linux (fuera de sql>) lanzo orden de exportacion
+			expdp hr/hr parfile='/home/oracle/Desktop/dirdam1/estimacionhr.txt'
+			expdp hr/hr parfile='/home/oracle/Desktop/dirdam1/exportacionhr.txt'
+			expdp hr/hr parfile='/home/oracle/Desktop/dirdam1/exportaciontrestablashr.txt'
+
+
+
+impdp importar
+			impdp hr/hr parfile='/home/oracle/Desktop/dirdam1/importaciontrestablashr.txt'
+
+
+
+
+
+
+
+
+
