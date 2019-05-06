@@ -358,11 +358,29 @@ desde terminal de linux (fuera de sql>) lanzo orden de exportacion
 impdp importar
 			impdp hr/hr parfile='/home/oracle/Desktop/dirdam1/importaciontrestablashr.txt'
 
+TABLE_EXISTS_ACTION=APPEND -- AÑADE FILAS A UNA TABLA QUE YA TIENE CONTENIDO
+TABLE_EXISTS_ACTION=REPLACE -- REEMPLAZA EL CONTENIDO DE LA TABLA
+
+si la tabla existe ;
+
+CONTENT= DATA_ONLY -- SOLO IMPORTA LOS DATOS Y NO LA ESTRUCTURA DE LA TABLA. SI LA TABLA NO EXISTE NO LA CREA
+CONTENT= METADATAONLY_ONLY -- SOLO IMPORTA LA ESTRUCTURA DE LA TABLA Y NO LOS DATOS . SI LA TABLA NO EXISTE SI LA CREA
+CONTENT= ALL -- (DEFAULT) DATOS Y ESTRUCTURA
+
+
+ -- VER TODOS LOS OBJETOS (TRIGGERS SECUENCIAS VIEWS ) DE UN USUARIO
+ select * from DBA_OBJECTS where owner = 'HR' and object_type = 'TRIGGER';
+
+dba_triggers   --  VISTA DE TRIGGERS DEL SISTEMA, SE PEUDE VER EL CONTENIDO O CUERPO DE UN TRIGGER
 
 
 
+INCLUDE=PROCEDURE
+INCLUDE=PROCEDURE:"like 'PPAL'"
 
+exclude=trigger
 
-
-
+ --  no se pueede poner include y exclude en el mismo fichero
+INCLUDE = TABLES
+INCLUDE = TRIGGER:"IS NULL" -- 
 

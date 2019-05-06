@@ -1,15 +1,12 @@
 ;;; 
-Import: Release 11.2.0.1.0 - Production on Tue Apr 30 14:44:14 2019
+Import: Release 11.2.0.1.0 - Production on Fri May 3 14:27:49 2019
 
 Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
 ;;; 
 Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
 With the Partitioning, OLAP, Data Mining and Real Application Testing options
-Master table "HR"."SYS_IMPORT_TABLE_01" successfully loaded/unloaded
-Starting "HR"."SYS_IMPORT_TABLE_01":  hr/******** parfile=/home/oracle/Desktop/dirdam1/importaciontrestablashr.txt 
-Processing object type TABLE_EXPORT/TABLE/TABLE
-Processing object type TABLE_EXPORT/TABLE/TABLE_DATA
-. . imported "HR"."XOGA"                                 5.953 KB      11 rows
-Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
-Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
-Job "HR"."SYS_IMPORT_TABLE_01" successfully completed at 14:44:15
+Master table "HR"."SYS_IMPORT_FULL_01" successfully loaded/unloaded
+Starting "HR"."SYS_IMPORT_FULL_01":  hr/******** parfile=/home/oracle/Desktop/dirdam1/importaproce.txt 
+Processing object type SCHEMA_EXPORT/PROCEDURE/PROCEDURE
+Processing object type SCHEMA_EXPORT/PROCEDURE/ALTER_PROCEDURE
+Job "HR"."SYS_IMPORT_FULL_01" successfully completed at 14:27:51

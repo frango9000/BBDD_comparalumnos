@@ -1,0 +1,5 @@
+DUMPFILE=trestablashr.dmp
+DIRECTORY=ALIASDIRDAM1
+TABLES=xoga
+content=data_only
+QUERY=XOGA:"WHERE CODPAR='p1'"

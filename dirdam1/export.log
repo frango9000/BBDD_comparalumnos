@@ -1,22 +1,150 @@
 ;;; 
-Export: Release 11.2.0.1.0 - Production on Tue Apr 30 14:40:16 2019
+Export: Release 11.2.0.1.0 - Production on Fri May 3 14:23:10 2019
 
 Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
 ;;; 
 Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
 With the Partitioning, OLAP, Data Mining and Real Application Testing options
-Starting "HR"."SYS_EXPORT_TABLE_01":  hr/******** parfile=/home/oracle/Desktop/dirdam1/exportaciontrestablashr.txt 
+Starting "HR"."SYS_EXPORT_SCHEMA_01":  hr/******** parfile=/home/oracle/Desktop/dirdam1/FPROBAEXP.TXT 
 Estimate in progress using BLOCKS method...
-Processing object type TABLE_EXPORT/TABLE/TABLE_DATA
-Total estimation using BLOCKS method: 192 KB
-Processing object type TABLE_EXPORT/TABLE/TABLE
-Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
-Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+Total estimation using BLOCKS method: 7.062 MB
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/TYPE/INC_TYPE
+Processing object type SCHEMA_EXPORT/TYPE/TYPE_SPEC
+Processing object type SCHEMA_EXPORT/SEQUENCE/SEQUENCE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/COMMENT
+Processing object type SCHEMA_EXPORT/FUNCTION/FUNCTION
+Processing object type SCHEMA_EXPORT/PROCEDURE/PROCEDURE
+Processing object type SCHEMA_EXPORT/FUNCTION/ALTER_FUNCTION
+Processing object type SCHEMA_EXPORT/PROCEDURE/ALTER_PROCEDURE
+Processing object type SCHEMA_EXPORT/VIEW/VIEW
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/TRIGGER
+Processing object type SCHEMA_EXPORT/VIEW/TRIGGER
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+. . exported "HR"."A1C"                                  5.515 KB      10 rows
+. . exported "HR"."A2C"                                  5.523 KB      10 rows
+. . exported "HR"."ACCIONS"                              5.609 KB      10 rows
+. . exported "HR"."ACTORES"                              7.421 KB      27 rows
 . . exported "HR"."ADESTRA"                              5.914 KB       7 rows
-. . exported "HR"."XOGA"                                 5.953 KB      11 rows
+. . exported "HR"."ADSCRITO"                             5.460 KB       6 rows
+. . exported "HR"."AGUDOS"                               5.085 KB       9 rows
+. . exported "HR"."ALOXA"                                7.335 KB      39 rows
+. . exported "HR"."ALOXAN"                               7.007 KB      14 rows
+. . exported "HR"."ARBITRO"                              5.039 KB       4 rows
+. . exported "HR"."AREA"                                 5.921 KB       7 rows
+. . exported "HR"."ASEGURADO"                            7.195 KB      22 rows
+. . exported "HR"."ASIGNAN"                              6.812 KB       8 rows
+. . exported "HR"."AUGAS"                                5.531 KB       7 rows
+. . exported "HR"."AUTOR"                                5.664 KB      16 rows
+. . exported "HR"."BALNEARIOS"                               7 KB      12 rows
+. . exported "HR"."CAPACITADO"                           5.062 KB       5 rows
+. . exported "HR"."CAT1"                                 5.453 KB       5 rows
+. . exported "HR"."CAT2"                                 5.039 KB       5 rows
+. . exported "HR"."CIDADES"                                5.5 KB       6 rows
+. . exported "HR"."COCHES_TAB"                           10.61 KB       8 rows
+. . exported "HR"."COLEXIADO"                            5.476 KB       5 rows
+. . exported "HR"."COMPON"                               5.921 KB       9 rows
+. . exported "HR"."COMPONEN"                             6.125 KB      22 rows
+. . exported "HR"."COMPONENTES"                          5.656 KB      14 rows
+. . exported "HR"."CONCERTADO"                           5.460 KB       6 rows
+. . exported "HR"."CRONICOS"                             5.078 KB       9 rows
+. . exported "HR"."CURSO"                                7.062 KB      10 rows
+. . exported "HR"."CURSOS"                               5.421 KB       2 rows
+. . exported "HR"."DISPON"                               5.531 KB       9 rows
+. . exported "HR"."EDICION"                              6.851 KB       7 rows
+. . exported "HR"."EMPREGADO"                            11.42 KB      40 rows
+. . exported "HR"."EMPRESAS"                             6.617 KB      10 rows
+. . exported "HR"."ENTREVISTA"                           6.578 KB      22 rows
+. . exported "HR"."EQUIPO"                               5.898 KB       5 rows
+. . exported "HR"."ESTADIO"                              5.468 KB       4 rows
+. . exported "HR"."FARMACEUTICOS"                        6.015 KB      11 rows
+. . exported "HR"."FARMACIAS"                            6.031 KB      10 rows
+. . exported "HR"."HABITACIONS"                          5.945 KB      11 rows
+. . exported "HR"."HOSP1"                                7.437 KB      14 rows
+. . exported "HR"."HOSP2"                                7.187 KB       6 rows
+. . exported "HR"."HOSPITAL"                             6.031 KB      12 rows
+. . exported "HR"."HOTEIS"                               5.507 KB       8 rows
+. . exported "HR"."HOTEL"                                5.921 KB       5 rows
+. . exported "HR"."HUMANOS"                              6.062 KB      12 rows
+. . exported "HR"."INDICADAS"                            5.531 KB      13 rows
+. . exported "HR"."INTERPRETESPEL"                       7.085 KB      24 rows
+. . exported "HR"."INTERPRETESSER"                       6.601 KB      25 rows
+. . exported "HR"."INTERVEN"                             5.906 KB       7 rows
+. . exported "HR"."KLINGON"                              6.140 KB      16 rows
+. . exported "HR"."LABORATORIOS"                         5.539 KB       8 rows
+. . exported "HR"."LANZADERAS"                           6.093 KB      20 rows
+. . exported "HR"."LIBROSPLANETA"                        6.234 KB       1 rows
+. . exported "HR"."LOG"                                  7.226 KB       5 rows
+. . exported "HR"."MEDICAMENTOS"                         6.539 KB      13 rows
+. . exported "HR"."MEDICO"                               6.320 KB       5 rows
+. . exported "HR"."MEDICOS"                              5.914 KB       7 rows
+. . exported "HR"."MEDIO"                                5.085 KB       6 rows
+. . exported "HR"."MINERAIS"                               5.5 KB       7 rows
+. . exported "HR"."MOVEMENTO"                            6.328 KB      22 rows
+. . exported "HR"."NAVES"                                5.898 KB       5 rows
+. . exported "HR"."NONCAPACITADO"                        5.265 KB      35 rows
+. . exported "HR"."PACIENTES"                            6.562 KB      18 rows
+. . exported "HR"."PADECEN"                              5.671 KB      24 rows
+. . exported "HR"."PAIS"                                 6.335 KB       6 rows
+. . exported "HR"."PARENTES"                             6.718 KB       3 rows
+. . exported "HR"."PARENTES_H"                           6.273 KB       1 rows
+. . exported "HR"."PARENTES_M"                           5.906 KB       2 rows
+. . exported "HR"."PARTICIPANTE"                         7.101 KB      25 rows
+. . exported "HR"."PARTIDA"                              7.445 KB      17 rows
+. . exported "HR"."PARTIDO"                              6.460 KB       7 rows
+. . exported "HR"."PEDIDOS"                              6.265 KB       1 rows
+. . exported "HR"."PELICULAS"                              6.5 KB       9 rows
+. . exported "HR"."PER"                                  5.835 KB       3 rows
+. . exported "HR"."PERFIL"                               5.726 KB      14 rows
+. . exported "HR"."PERSOAS"                              8.718 KB      25 rows
+. . exported "HR"."PERSOAS_TAB"                          10.05 KB       5 rows
+. . exported "HR"."PERSONAXES"                           7.304 KB      46 rows
+. . exported "HR"."PLANETAS"                             6.117 KB      12 rows
+. . exported "HR"."POBOACIONS"                           5.710 KB      21 rows
+. . exported "HR"."POLIZA"                               5.570 KB      15 rows
+. . exported "HR"."POSTOS"                               8.304 KB      19 rows
+. . exported "HR"."PRATO"                                5.453 KB       2 rows
+. . exported "HR"."PRATOS"                               5.429 KB       1 rows
+. . exported "HR"."PRERREQUISITO"                        5.492 KB       4 rows
+. . exported "HR"."PRESCRIBEN"                           6.765 KB       6 rows
+. . exported "HR"."PRESENTACIONS"                        5.523 KB       8 rows
+. . exported "HR"."PROBA"                                5.445 KB       3 rows
+. . exported "HR"."PRODUCION"                            5.921 KB       9 rows
+. . exported "HR"."PRODUCTOS"                            6.742 KB       4 rows
+. . exported "HR"."PROPIO"                               5.031 KB       4 rows
+. . exported "HR"."PROPIOS"                              5.125 KB      13 rows
+. . exported "HR"."RECIBE"                               6.023 KB      11 rows
+. . exported "HR"."REXEITA"                              5.507 KB       4 rows
+. . exported "HR"."SALA"                                 5.992 KB      11 rows
+. . exported "HR"."SERIES"                               6.390 KB       6 rows
+. . exported "HR"."SOCIO"                                6.640 KB      20 rows
+. . exported "HR"."STOCK"                                6.687 KB      28 rows
+. . exported "HR"."TEN"                                  5.570 KB      17 rows
+. . exported "HR"."TOTAL"                                5.882 KB       5 rows
+. . exported "HR"."TOTALGRAXAS"                          5.929 KB       4 rows
+. . exported "HR"."TRABALLAN"                            5.617 KB      17 rows
+. . exported "HR"."UVA"                                  6.351 KB       6 rows
+. . exported "HR"."VENDAS_TAB"                           7.578 KB       5 rows
+. . exported "HR"."VENTAS"                               6.351 KB       5 rows
+. . exported "HR"."VISITAS"                              6.617 KB      15 rows
+. . exported "HR"."VULCANOS"                             5.593 KB      13 rows
+. . exported "HR"."XESTORES"                             7.906 KB      10 rows
+. . exported "HR"."XOGA"                                 5.875 KB       5 rows
 . . exported "HR"."XOGADOR"                              7.007 KB      15 rows
-Master table "HR"."SYS_EXPORT_TABLE_01" successfully loaded/unloaded
+. . exported "HR"."XORNADA"                              6.375 KB      39 rows
+. . exported "HR"."ZONAS"                                5.453 KB       3 rows
+. . exported "HR"."ZONAS_CORPORAIS"                      5.562 KB      10 rows
+. . exported "HR"."LIBRO"                                    0 KB       0 rows
+. . exported "HR"."LIBROSCATEDRA"                            0 KB       0 rows
+. . exported "HR"."TOTALORACLE"                              0 KB       0 rows
+Master table "HR"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded
 ******************************************************************************
-Dump file set for HR.SYS_EXPORT_TABLE_01 is:
-  /home/oracle/Desktop/dirdam1/trestablashr.dmp
-Job "HR"."SYS_EXPORT_TABLE_01" successfully completed at 14:40:19
+Dump file set for HR.SYS_EXPORT_SCHEMA_01 is:
+  /home/oracle/Desktop/dirdam1/TODO.DMP
+Job "HR"."SYS_EXPORT_SCHEMA_01" successfully completed at 14:23:26
