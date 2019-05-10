@@ -384,3 +384,35 @@ exclude=trigger
 INCLUDE = TABLES
 INCLUDE = TRIGGER:"IS NULL" -- 
 
+
+
+ ************************* Copias de Seguridad ************************* 
+estado de la base de datos actual
+select status from v$instance;
+
+copias en caliente   archivelog
+copias en frio archivelog o noarchivelog
+select log_mode from v$database;
+noarchivelog - los online log llenos no son guardados en archived
+archivelog - los online log llenos son guardados en archived
+
+cambiar archivelog:
+cambiar a estado mount
+shutdown
+startup mount
+alter database archivelog; alter database noarchivelog;
+alter database open;
+
+
+log groups of uncommited changes
+select status, sequence#, archived,group# from v$log;
+
+forzar cambio de grupo
+
+
+
+
+ ************************* Q/A ************************* 
+v$    v$instance
+group# sequence#  #
+
