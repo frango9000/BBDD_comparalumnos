@@ -1,0 +1,58 @@
+*********************************************
+		DATAPUMP
+******************************************
+expdp: extraer la extructura e/o datos de un esquema de un usuario oracle a un fichero externo encriptado
+impdp: importa la extructura e/o datos de un fichero externo creado previamente con expdp hacia un esquema de un usuario oracle 
+
+PREVIO:
+1)-tener clara la ruta ABSOLUTA donde se hace la exportacion  (crear un carpeta)(dirdam1)
+ /home/oracle/Desktop/dirdam1
+2)-crear ALIAS (object directory) asociando la ruta:
+hay que ponerse SYS:
+	create directory aliasdirdam1 as '/home/oracle/Desktop/dirdam1';
+3)-hay que darle permiso de lectura y escritura a un usuario/s para que pueda usar el alias:
+ 	SYS: 
+	grant read,write on directory aliasdirdam1 to HR; 
+
+EXPORTACION:
+1)-crear un fichero de parametros con extension .txt
+puede estar en cualquier sitio pero se mete en la carpeta
+	 estimacionhr.txt
+(estimacion: xq va a calcuar cuanto ocupa la exportacion dentro hay el programa que lanza).
+2)- me situo en linux (. oraenv) y lanzo orden de exportacion
+expdp hr/hr parfile=/home/oracle/Desktop/dirdam1/estimacionhr.txt
+muestra una estimacion en terminal
+2.1)-si cambiamos en el fichero nofile=n 
+hay que decirle en q directorio queremos guardar dentro del fichero
+
+3)-Para hacer la esportacion de hr 
+expdp hr/hr parfile=/home/oracle/Desktop/dirdam1/exportacionhr.txt
+crea el fichero encriptado con todas las tablas guardadas en hr
+
+-hacemos exportacion de tres tablas xogador, xoga y adestra
+expdp hr/hr parfile=/home/oracle/Desktop/dirdam1/exportaciontrestaboashr.txt
+
+
+IMPORTACION:
+
+1)- recuperar una tabla borrada:
+-desde hr borrar la tabla xoga
+drop table xoga;
+2)-importar la tabla situados desde linux
+impdp hr/hr parfile=/home/oracle/Desktop/dirdam1/importaxoga.txt
+
+importar datos de una tabla sin perder los que ya hay en la tabla, solo importa los datos no la extructura:
+importadatosxoga.txt
+TABLE_EXISTS_ACTION=APPEND
+Si la tabla existe adiciona los datos
+TABLE_EXISTS_ACTION=REPLACE
+machaca los datos que tenias guardados en hr reemplazandolo
+CONTENT=DATA_ONLY
+solo guarda los contenidos en la tabla pero no crea la tabla si no existe
+CONTENT=METADATA_ONLY
+importa solo la extructura
+CONTENT= ALL 
+importa la extructura y los datos , si no lo pones por defecto hace all.
+QUERY= nombretabla:"WHERE ...."
+
+

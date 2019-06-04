@@ -1,0 +1,236 @@
+*************************************************
+   CREACION Y RECUPERACION DE  UNA BASE DE DATOS 
+************************************************
+
+1º. ¿Como enciende y apaga oracle?
+La base esta en estado shutdow (apagado) y hay que encenderla
+
+	ESTADOS BASICOS DE LA BD DE ABRIR
+					   |conectarse usuarios	
+                   			   | copias seguridad en
+                   			   | quente (bd encendida o
+				   __OPEN__|  copia incoherente*)
+                                   | 
+                                   | copias de seguridad en frio
+			___MOUNT___| (bd apagada o copia coherente)
+                       | 
+                       | 
+	     _NOMOUNT__| creacion de la base
+            | 
+            | 
+_shutdown___| creacion de spfile
+
+sqlplus sys/oracle as sysdba 
+startup
+verificamos que estamos conectados mediante a instancia a base adecuada: 
+ 
+select value from v$system_parameter where name='db_name'; 
+select value from v$system_parameter where name='instance_name'; 
+
+para mirar el estado de la base:
+select status fROm v$instance;
+
+*incoherente: si creas una copia con la BD encendida y siguen usuarios conectados y metiendo datos entonces la copia no queda completa
+*coherente: si la bd esta cerrada nadie trabaja en ella y los datos copiados son los que hay
+
+de shutdown a open --> STARTUP (OPEN opcional)* x defecto ya abre
+de shutdown a nomount --> STARTUP NOMOUNT
+de shutdown a mount --> STARTUP MOUNT
+de NOMOUNT a mount--> ALTER DATABASE MOUNT
+de mount a open --> ALTER DATABASE OPEN
+de nomount a open --> ALTER DATABASE OPEN 
+
+si intentas entrar con un usuario y no esta abierta la db te hecha y hay que volver a conectarse
+no te puedes conectar con otro usuario si no esta en open
+
+	ESTADOS BASICOS DE  CERRAR
+
+SHUTDOWN ABORT: forzar apagado 
+(cuando se queda pillada la bd y no se puede cerrar tarda mas en recuperarse)
+SHUTDOWN TRANSACTIONAL: termina de ejecutar las ordenes en curso antes de apagarla, no deja hacer nuevas (hace un commit cuando acaba)
+SHUTDOWN IMMEDIATE: no espera a que termine las operaciones en curso , desaciendo los cambios ya efectuados por dichas operaciones
+SHUTDOWN: espera a que las sesiones de usuarios esten desconectados.
+
+
+¿Cuando es mejor apagar la bd? 
+NUNCA : la mejor bd es la que nunca se apaga.
+
+2º. CREAR UNA BD NUEVA
+nombre: bcopias
+ruta: /home/oracle/app/oracle/
+product--> estan las versiones instaladas de oracle
+admin --> ficheros de texto con la configuracion bd de oracle
+flashrecoveryarea--> copias de seguridad de las bd
+oradata--> contenido de datos , los ficheros con los datos contenidos en las bd
+
+crear la carpeta bcopias en :
+admin/bcopias:dentro de esta tiene tres carpetas :
+	adump --> auditorias
+	dpdump--> exportacion e importacion de datos por estandar
+	pfile**--> init.ora, fichero q arranca oracle 
+**este fichero se crea con los apuntes del profe el pto 3
+
+flash_recovery area/bcopias
+oradata/bcopias
+
+ CERRAR ORCL
+
+
+
+*************************************
+seguridad bd- donde nos encontramos
+*************************************
+MODO de creacion de los online redo  :
+noarchivelog: no puede hacer bases en caliente, no guarda cada vez que pasa por los grupos
+archivelog: perimite en caliente;guarda antes de hacer la vuelta
+
+select log_mode from v$database;
+
+
+para mirar en que grupo esta gravando la informacion de los redo.lg
+select status, sequence#, archived, group# from v$log;
+current en cual esta gravando actualmente
+
+forzar el salto de grupo- bascular los online redo logs, solo puede sys
+
+ alter system switch logfile;
+
+
+Cambiar el modo a archivelog:
+alter database archivelog;
+
+
+*************************************
+copia seguridad bd
+*************************************
+
+para hacer la copia hay que usar una herramienta externa 
+	RMAN
+
+
+1º la DB tiene que estar en MOUNT
+2º hacer la copia de seguridad:
+entrar en la base de datos bcopias 
+	rman target sys/oracle
+RMAN> backup database tag='COPIAPRIMEIRA';
+
+abrir la base de datos
+conectarse como scott
+metemos en la tabla un dato y commit
+SQL> insert into equipo values('e6','zombie',3);
+cuando nos recuperemos no aparecerá lo 
+*************************************
+RECUPERACION DE DATOS en frio
+*************************************	
+1º la DB tiene que estar en MOUNT:
+	1)conn sys/oracle as sysdba
+	2)SHUTDOWN
+--> PERO HAY QUE SALIR DEL RMAN PARA QUE DEJE ENTRAR PORQUE LO CONSIDERA UN USUARIO con exit
+2º volver a entrar en rman :
+		rman target sys/oracle
+3ºrecuperarse desde la copia 
+RMAN> restore database;
+RMAN> recover database;
+exit
+4º en sys
+ alter database open (da error must use RESETLOGS or NORESETLOGS option for database open)
+
+alter database open resetlogs;
+para vaciar la informacion de los redolog para perder la informacion
+
+*************************************
+RECUPERACION DE DATOS en en caliente
+*************************************
+1º PASAR A SYS
+
+2º pasar a archive log  pasando a mount
+	alterdatabase archivelog;
+3ºabrir la bd
+
+4º desde RMAN:
+	backup database tag='COPIAPRIMEIRA';
+
+
+5º conectarse como scott
+conectarse como scott
+metemos en la tabla un dato y commit
+SQL> insert into equipo values('e6','zombie',3);
+commit!! importante si no no funciona 
+ alter system switch logfile;
+
+6ºpara recuperar siempre en mount
+recuperarse desde la copia 
+RMAN> restore database;
+RMAN> recover database;
+
+********************************************
+RECUPERACION DE DATOS  copia incremental
+***********************************************
+Diferencia con la copia en caliente es que se va copiando lo que falta de las copias anteriores, por lo tanto si inicialmente tenemos una db que ocupa 4g y hacemos una cp tenemos una copia de 4g despues crece 1g y hacemos otra cp está solo ocupa el giga que crecio
+
+Así las copias son más rápidas aunque recuperar tarda un poco más porque hay que hacerlo por fases
+
+A la primera copia se le llama de nivel 0
+y las incrementales son de nivel 1
+
+Linea de tiempo :
+____________________________________________________________ _ _ _
+|			|			|
+COPIA1			COPIA2			COPIA3
+nivel 0 		nivel 1			nivel 1
+4G			1G			3G
+
+Es una copia en caliente, no cerrar la db:
+
+1º la primera copia de nivel 0:
+Entrar en rman como 
+
+RMAN> backup incremental level 0 database tag='COPIA1LEVEL0';
+
+2º simulamos que pasa tiempo :
+añadimos algo a la db 
+bascular relog
+
+SCOTT>
+insert into equipo values('e20','casa',3);
+commit;
+
+insert into equipo values('e21','arbol',3);
+En este no se hace el commit;
+
+3ºcopia 2 nivel 1:
+
+RMAN> backup incremental level 1 database tag='INCREMENTAL1';
+
+4º se sigue trabajando con scott:
+SCOTT>
+insert into equipo values('e22','lago',3);
+commit;
+
+vascular relogs:
+alter system switch logfile;
+
+5ºcopia 3 nivel 1:
+
+RMAN> backup incremental level 1 database tag='INCREMENTAL2';
+
+6º recuperarse de la copia:
+simular la caida: (acordarse de salir de rman)
+shutdown
+y startup mount
+
+7º :
+rman> restore database;(aplica el level0)
+rman>recover database;
+
+8º abrir denuevo la db:
+alter database open;
+
+***************************************************************
+Si la base se hubiera caido no habria guardado lo que no esté confirmado commit, al apagarla con shutdown confirma los cambios.
+Si se hubiera apagado la bd con un shutdown abort no quedaria guardada 
+***************************************************************
+
+
+
+

@@ -1,0 +1,38 @@
+
+*****************************
+**  PREGUNTAS DE EXAMEN   ** 
+*****************************
+
+
+1.dada esta vista sabrias reconstruir la instruccion que la ejecuto
+ejemplo
+GRANTEE 		       OWNER
+------------------------------ ------------------------------
+TABLE_NAME		       COLUMN_NAME
+------------------------------ ------------------------------
+GRANTOR 		       PRIVILEGE				GRA
+------------------------------ ---------------------------------------- ---
+XOAN			       HR
+XOGADOR 		       SALARIO
+HR			       UPDATE					YES
+
+XOAN			       HR
+XOGADOR 		       NOMX
+HR			       INSERT					YES
+
+GRANTEE 		       OWNER
+------------------------------ ------------------------------
+TABLE_NAME		       COLUMN_NAME
+------------------------------ ------------------------------
+GRANTOR 		       PRIVILEGE				GRA
+------------------------------ ---------------------------------------- ---
+
+XOAN			       HR
+XOGADOR 		       CODX
+HR	
+
+grant update (salario), insert (codx, nomx) on xogador to xoan with grant option;
+que son 3 ordenes:
+grant update (salario) on xogador to to xoan with grant option;
+grant insert (codx) on xogador to xoan with grant option;
+grant insert (nomx) on xogador to xoan with grant option;

@@ -1,0 +1,104 @@
+**********************************************************************************************************************
+   						COPIAS DE SEGURIDAD Y RECUPERACION DE  UNA BASE DE DATOS 
+**********************************************************************************************************************
+STARTUP
+STARTUP OPEN / MOUNT / NOMOUNT
+SHUTDOWN
+SHUTDOWN ABORT (Forzar) / TRANSACTIONAL(Espera operaciones) / IMMEDIATE (No espera y deshace operaciones)
+COPIA INCOHERENTE: copia con la BD encendida (INCOMPLETA) 
+COPIA COHERENTE: copia con la BD apagada (COMPLETA)
+CONSULTA ESTADO DE LA BASE:
+	select status from v$instance;
+
+MODO DE LOS ONLINE REDO LOG: 
+	-noarchivelog: (no copias en caliente)
+	-archivelog: perimite en caliente;(si copias en caliente)
+
+CONSULTAR ESTADO, SECUENCIA, MODO Y GRUPO DE REDOLOGS
+	select status, sequence#, archived, group# from v$log;
+
+BASCULAR REDOLOGS:
+	alter system switch logfile;
+
+CONSULTAR MODO DE LA BASE
+	select log_mode from v$database;
+
+CAMBIAR MODO DE LA BASE
+	alter database ARCHIVELOG / NOARCHIVELOG ;
+
+CONSULTAMOS QUE ESTAMOS CONECTADOS MEDIANTE LA INSTANCIA A LA BASE DE DATOS CORRECTA
+SYS:
+	select value from v$system_parameter where name='db_name'; 
+	select value from v$system_parameter where name='instance_name'; 
+
+COMO ACCEDER A RMAN?
+ABRIR TERMINAL
+. oraenv
+? <NOMBREBD>
+rman target sys/oracle
+
+*************************************************** COPIA EN FRIO ******************************************************
+
+1)- COLOCAR BD EN ESTADO MOUNT
+2)- ABRIR OTRO TERMINAL Y ACCEDER A RMAN 
+3) EJECUTAR ORDEN DE COPIA
+RMAN>
+	backup database tag='<NOMBRECOPIA>';
+	exit
+4)- VOLVER A COLOCAR BD EN ESTADO OPEN
+5)- conectarse como <USUARIO>
+6)- REALIZAMOS CAMBIOS Y COMMIT
+
+********************************************* ****  COPIA EN CALIENTE ***********************************************
+
+1)- COLOCAR BD EN ESTADO MOUNT
+2)- CAMBIAR MODO DE LA BASE A ARCHIVELOG
+3)- COLOCAR BD EN ESTADO OPEN
+4)- ABRIR OTRO TERMINAL Y ACCEDER A RMAN
+	backup database tag='<NOMBRECOPIA>';
+5)- conectarse como <USUARIO>
+6)- REALIZAMOS CAMBIOS Y COMMIT
+4) BASCULAR REDOLOGS VARIAS VECES
+
+************************************************* COPIA INCREMENTAL *************************************************
+Primera copia - nivel 0
+Copias Incrementales - nivel 1
+
+1)- COLOCAR BD EN ESTADO OPEN 
+2)- ABRIR OTRO TERMINAL Y ACCEDER A RMAN
+RMAN> 
+	backup incremental level 0 database tag='<NOMBRECOPIALVL0>';
+5)- conectarse como <USUARIO>
+6)- REALIZAMOS CAMBIOS Y COMMIT
+7) BASCULAR REDOLOGS VARIAS VECES
+8)- ABRIR OTRO TERMINAL Y ACCEDER A RMAN
+RMAN> 
+	backup incremental level 1 database tag='<NOMBRECOPIALVL1>';
+9) REPETIR PASOS 5 6 7 8 LAS VECES QUE SEA NECESARIO PARA SIMULAR VARIAS COPIAS INCREMENTALES
+
+************************************************* RECUPERACION *****************************************************
+1)- COLOCAR BD EN ESTADO MOUNT
+2)- CAMBIAR MODO DE LA BASE A NOARCHIVELOG
+3)- ABRIR OTRO TERMINAL Y ACCEDER A RMAN
+4)- EJECUTAR ORDENES DE RESTAURACION Y RECUPERACION
+RMAN>
+	rman target sys/oracle;
+	restore database;
+	recover database;
+	exit
+5)- CONECTARSE A SYS
+SYS> 
+        alter database open;
+_________________________________________________________________________________________________________
+SI SALTA ERROR >> (error must use RESETLOGS or NORESETLOGS option for database open) RESETEA REDOLOGS
+	alter database open resetlogs; 
+	alter database open;
+
+**********************************************************************************************************************
+
+
+
+
+
+
+

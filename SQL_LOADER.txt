@@ -1,0 +1,54 @@
+
+******************************************************************************************************
+									SQL-Loader
+******************************************************************************************************
+
+SQL-Loader (Oracle) Solo Permite IMPORTAR datos desde ficheros de texto planos.
+-carga VARIABLE ó carga FIJA.
+
+1)-CREAR FICHERO DE CARGA .CTL
+
+----------------------------------------------EJEMPLO VARIABLE-------------------------------------------------
+LOAD DATA
+INFILE <FICHERODATOS.txt>
+INTO TABLE <NOMBRETABLA>
+APPEND
+WHEN (<CAMPO>='<VALOR>')
+FIELDS TERMINATED BY ',' 
+TRAILING NULLCOLS <<ACEPTA DATOS NULOS
+(
+<COLUMNA1>,
+<COLUMNA2>,
+<COLUMNA3>,
+<COLUMNA4> FILLER,  <<FILLER PARA DATOS QUE NO QUEREMOS ASIGNAR
+DATAI FILLER,
+<COLUMNA5> "TO_DATE(:<COLUMNA5>,'YYYYMMDD')" <<PARA CAMPOS DE TIPO DATE
+)
+*SE PUEDE PONER AQUI OTRO INTO TABLE A OTRA TABLA CON DIFERENTES CONDICIONES*
+)
+---------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------EJEMPLO FIJA-------------------------------------------------------
+LOAD DATA
+INFILE <FICHERODATOS.txt>
+INTO TABLE <NOMBRETABLA>
+APPEND
+WHEN (<CAMPO>='<VALOR>')
+TRAILING NULLCOLS
+(
+<COLUMNA1> POSITION(1:4),
+<COLUMNA2> POSITION(5:7),
+<COLUMNA3> POSITION(8:9),
+<COLUMNA4> FILLER POSITION(10:12), 
+<COLUMNA5> POSITION(21:28) "TO_DATE(:DATAF,'YYYYMMDD')"
+)
+
+ *CONSULTA LONGITUD DE 1 COLUMNA DE 1 TABLA*
+select data_type, data_length from user_tab_columns where table_name = '<NOMBRETABLA>' 
+and column_name='<NOMBRECOLUMNA>';
+------------------------------------------------------------------------------------------------------------------
+
+2)- ABRIR TERMINAL DESDE EL DIRECTORIO (. oraenv)  ORDEN DE CARGA
+sqlldr <usuario>/<clave control> = <nombre de fichero>.ctl
+
+****************************************************************************************************

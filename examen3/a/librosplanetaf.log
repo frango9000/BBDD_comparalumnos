@@ -1,0 +1,69 @@
+
+SQL*Loader: Release 11.2.0.1.0 - Production on Tue Jun 4 13:41:10 2019
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   librosplanetaf.ctl
+Data File:      libro_fixo.txt
+  Bad File:     libro_fixo.bad
+  Discard File:  none specified
+ 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 0
+Errors allowed: 50
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table LIBROSPLANETA, loaded when EDITORIAL = 0X706c616e657461(character 'planeta')
+Insert option in effect for this table: APPEND
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+CLIBRO                                1:6     6           CHARACTER            
+TITULO                               7:36    30           CHARACTER            
+EDITORIAL                           37:56    20           CHARACTER            
+  (FILLER FIELD)
+DEDICION                            57:64     8           CHARACTER            
+    SQL string for column : "TO_DATE(:DEDICION,'YYYYMMDD')"
+CODAUTOR                            67:69     3           CHARACTER            
+
+Record 1: Discarded - failed all WHEN clauses.
+Record 2: Discarded - failed all WHEN clauses.
+Record 3: Discarded - failed all WHEN clauses.
+Record 4: Discarded - failed all WHEN clauses.
+Record 6: Discarded - failed all WHEN clauses.
+Record 7: Discarded - failed all WHEN clauses.
+Record 8: Discarded - failed all WHEN clauses.
+Record 9: Discarded - failed all WHEN clauses.
+Record 10: Discarded - failed all WHEN clauses.
+Record 11: Discarded - failed all WHEN clauses.
+Record 12: Discarded - failed all WHEN clauses.
+Record 13: Discarded - failed all WHEN clauses.
+Record 14: Discarded - failed all WHEN clauses.
+Record 15: Discarded - failed all WHEN clauses.
+Record 17: Discarded - failed all WHEN clauses.
+
+Table LIBROSPLANETA:
+  2 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  15 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                   4992 bytes(64 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          0
+Total logical records read:            17
+Total logical records rejected:         0
+Total logical records discarded:       15
+
+Run began on Tue Jun 04 13:41:10 2019
+Run ended on Tue Jun 04 13:41:11 2019
+
+Elapsed time was:     00:00:00.14
+CPU time was:         00:00:00.00

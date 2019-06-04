@@ -1,0 +1,14 @@
+sqlldr hr/hr control=librosplanetaf.ctl
+
+create directory aliasa as '/home/oracle/Desktop/a';
+
+grant read, write on directory aliasa to hr;
+
+
+expdp hr/hr parfile = /home/oracle/Desktop/a/exportahrvl.txt
+
+delete from visitas where codpla ='pla2';
+delete from lanzaderas;
+
+impdp hr/hr parfile=/home/oracle/Desktop/a/importahrvl.txt
+

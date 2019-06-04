@@ -1,0 +1,104 @@
+*****************************
+**     PRIVILEGIOS         ** 
+*****************************
+son derechos del usuario dentro de la DB
+Pueden ser de dos tipos:
+-del SISTEMA: relacionados con la creación de estructuras (create) y acceso al sistema.
+*privilegio 
+create:
+	session
+	table
+	procedure
+	triggers
+	view
+	sequence
+
+
+-OBJETO: relacionados con el acceso/manipulación a las estructuras creadas por otros usuarios
+****
+grant : conceder
+grantor: quien concede
+grantee: quien lo recibe
+
+********
+DEL SISTEMA
+*****
+dar privilegios de ususario
+GRANT privilegio1, privilegio2,... to nomeUsuario/ to public (todos los usuarios) (opcional: para poder dar permisos a otros usuarios)with admin option;
+grand create session, create table, create view to rh with admin option;
+****
+quitar permisos
+revoke create session from rh;
+******
+¿que pasa si le das un privilegio a un usuario y este se lo da a otro si le quitas los permisos al primero?
+solo quita permisos al que le dices si este antes le dio permisos a otro sigue teniendolo
+******
+para ver los privilegios  que tiene y si puede o no administrarlos
+select privilege, admin_option from user_sys_privs;
+
+*****
+los privilegios de sesión se dan automaticamente sin salir y volver a entrar 
+
+*****
+VER LOS PRIVILEGIOS DE CUALQUIER USUARIO DESDE ADMIN
+select privilege, admin_option from dba_sys_privs where grantee='perfil';
+
+*****
+VER LOS PRIVILEGIOS DE TU USUARIO
+ select privilege, admin_option from user_sys_privs; 
+privilegios de usuario en general, no repite 
+ select * from session_privs;
+
+
+*********
+DE OBJETO: de objetos de otros usuarios , en general tablas
+por lo que los privilegios suelen ser de manipulación
+***********
+SELECT 
+INSERT
+UPDATE
+DELETE 
+EXECUTE(procedure)
+
+*****
+cos privilegios insert y update se pueden indicar una lista de culumnas con el fin de limitar el privilegio a las columnas indicadas
+
+*******
+dar permisos de objeto:
+GRANT privilegio ON tabla TO usuario;(al que se le quiere dar)
+
+hay dos tablas que se llaman igual una en cada usuario ya que se pueden repetir los nombres ya que son independientes los esquemas
+para que romani le de permiso a hr en la tabla proba:
+
+
+para hacer un select en una tabla que no es tuya:
+ select * from romani.proba;
+
+para eliminar un permiso:
+rovoke insert on proba from hr;
+
+****************
+puedes dar permisos de admin para que tambien pueda dar privilegios a otros, tambien se pueden dar public y asi se le da a todo el mundo:
+ grant select on proba to hr with grant option;
+**los privilegios se elmininan en cascada, no como los de sistema; PORQUE AQUI TIENE ACCESO A DATOS y en el otro caso a Estructuras
+
+
+*********
+dar permisos a ciertas columnas 
+ grant insert (codx,nomx), UPDATE (salario) on xogador to xoan with grant option;
+ insertar cuando solo sabes las columnas a las que puede acceder:
+insert into hr.xogador(codx,nomx) values ('x30','lara');
+
+quitar permiso de columna:
+
+revoke
+
+******
+COMO VER LOS PRIVILEGIOS DE OBJETO:
+ desde el usuario dueño:
+
+ desde el usuario que disfruta del permiso:
+ 
+
+
+

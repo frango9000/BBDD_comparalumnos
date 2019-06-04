@@ -1,0 +1,22 @@
+xestion de usuarios
+
+conn hr/hr  conectar con un usuario y contraseña
+
+CREATE USER romani IDENTIFIED BY r;   crear usuario con contraseña  no tiene permiso para conectarse
+CREATE USER romani IDENTIFIED BY r QUOTA 20M ON USERS; 
+
+GRANT CREATE SESSION to romani ;
+GRANT CREATE TABLE TO romani;
+
+ALTER USER romani QUOTA 20M ON USERS;  darle 20 MB al usuario romani.
+
+
+ALTER USER romani ACCOUNT UNLOCK;  desbloquear usuario
+ALTER USER romani ACCOUNT LOCK;  bloquear usuario
+
+ALTER USER romani IDENTIFIED BY ro;  cambiar contraseña de usuario.
+ 
+ 
+ DROP USER ROMANI CASCADE; eliminar usuario
+ 
+CREATE USER romani IDENTIFIED BY r QUOTA 20M ON USERS PASSWORD EXPIRE; crear usuario con cuota que tiene la contraseña caducada.

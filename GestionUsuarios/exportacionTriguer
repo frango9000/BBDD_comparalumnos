@@ -1,0 +1,14 @@
+*******************************
+RECUPERAR UN TRIGGER
+******************************
+TSALARIOTOPE
+dba_triggers
+SQL> select object_name from dba_objects where owner='HR' and object_type='PROCEDURE';
+BUSCA EL TIPO QUE QUIERAS
+PAERPORTO
+
+importarproce.txt
+INCLUDE=PROCEDURE O TRIGGER
+
+SI NO QUIERES QUE TE EXPORTE LOS TRIGGERS ASOCIADOS A LA TABLA:
+INCLUDE=TRIGGER:"IS NULL"

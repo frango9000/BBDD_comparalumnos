@@ -1,0 +1,5 @@
+dumpfile=exportahrvl.dmp
+directory=aliasa
+
+
+TABLES=visitas,lanzaderas

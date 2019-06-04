@@ -396,14 +396,87 @@ select log_mode from v$database;
 noarchivelog - los online log llenos no son guardados en archived
 archivelog - los online log llenos son guardados en archived
 
+cambiar archivelog:
+cambiar a estado mount
+shutdown
+startup mount
+alter database archivelog; alter database noarchivelog;
+alter database open;
+
+
 log groups of uncommited changes
 select status, sequence#, archived,group# from v$log;
 
 forzar cambio de grupo
 
 
+--seleccionar todos los objetos de un usuario(hr)
+select object_name from dba_objects where owner='HR';
+
+--seleccionar triggers de hr
+select object_name from dba_objects where owner='HR' and OBJECT_TYPE='TRIGGER';
+
+--CREACION DE BASES DE DATOS
+--Como enciende y apaga oracle?
+--A base de datos está en estado shutdown(apagado) e hai que encendela.
+/*Esta pode estar en varios estados shutdown:
+OPEN-Conectase os usuarios // Copia de seguridade en quente (base encendida ou copia incoherente).
+MOUNT-Copias de seguridade en frío (base apagada ou copia coherente)
+NOMOUNT-Creación da base 
+SHUTDOWN-Creacion do spfile
+1.- Pasar de SHUTDOWN a OPEN: STARTUP
+2.- Pasar de SHUTDOWN a NOMOUNT: STARTUP NOMOUNT
+3.- Pasar de SHUTDOWN a MOUNT: STARUP MOUNT
+4.- Pasar a una superior: ALTER DATABASE
+
+No se puede descender
+
+5.- SHUTDOWN ABORT: Apagado forzado (cuando no apaga normal)
+6.- SHUTDOWN TRANSACTIONAL: Apaga esperando a que las operaciones en curso acaben.
+7.- SHUTDOWN IMMEDIATE: Apaga sin que las operaciones en curso acaben; dehace los cambios efectuados por dichas operaciones.
+8.- SHUTDOWN: Apaga la base cuando no hay ningún usuario conectado.
+*/ 
+
+--/home/oracle/app/oracle/product/11.2.0/dbhome/-->archivos y programas oracle
+--/home/oracle/app/oracle/admin/-->configuracion arranque
+--/home/oracle/app/oracle/flashrecovery_area/-->
+
+--con la base de datos en estado mount 
+
+--comprobar log_mode
+select log_mode from v$database;
+
+--hacer un backup
+abrir un nuevo terminal
+. oraenv
+bcopias
+rman target sys/oracle
+backup database tag='COPIAPRIMEIRA';
+
+--restaurar
+--desde otro terminal:
+rman target sys/oracle
+restore databse
+recover database
+
+
+ver en que base de datos estamos
+select value from v$system_parameter where name='db_name'; 
+
+ver el estado de la base de datos
+select status from v$instance;
+
+ver archivelog status
+select LOG_MODE from v$database;
+
+ ************************* Copia Incremental ************************* 
+
+la copia inicial es de nivel 0
+el resto son de nivel 1
+
 
 
  ************************* Q/A ************************* 
-
+v$    v$instance
+group# sequence#  #
 

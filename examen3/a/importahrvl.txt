@@ -1,0 +1,9 @@
+dumpfile=exportahrvl.dmp
+directory=aliasa
+
+TABLES=visitas
+
+TABLE_EXISTS_ACTION=APPEND
+
+QUERY=visitas:"where codpla='pla2'"
+

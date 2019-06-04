@@ -1,0 +1,31 @@
+**************************************
+** IMPORTACIÓN/EXPORTACION DE DATOS ** 
+**************************************
+
+DATA PUMP:(oracle) solo los puede ver oracle, formato propietario.
+	1. EXPDP: exporta 
+	2. IMPDP: importa
+SQL-LOADER:(oracle)herramienta de carga de datos desde fichero de texto plano, en las tablas de oracle. No permite descarga de oracle exportar.
+Dos tipos de carga:
+	CARGA VARIABLE: desde ficheros que usan delimitadores
+	CARGA FIJA: desde ficheros que usan posicionamiento fijo
+fichero de carga.ctl
+tabla creada
+fichero de datos
+orden de carga:
+(sqlloader)sqlldr nomeUsuario/contraseña control = fichero.ctl
+
+
+creamos esta tabla en hr:
+
+create table per(cod number primary key, nom varchar2(10),edad number);
+
+TENGO UN FICHERO DE DATOS F.TXT
+TENGO UN FICHERO DE CARGA FC.CTL
+y me meto en la ruta de la donde esta la carpeta
+me meto en  . oraenv  
+sqlldr hr/hr fc.ctl
+
+
+
+

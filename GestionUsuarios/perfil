@@ -1,0 +1,51 @@
+***************************
+**         Perfiles      ** 
+***************************
+conjunto de recursos identificados bajo un nombre (el nombre del perfil) un usuario solo puede tener un perfil.
+El perfil por defecto se llama DEFAULT;
+
+
+conectarse con usuario admin :
+conn sys/oracle as sysdba;
+
+
+crear un perfil y dar intentos de conexion para que se bloquee( por defecto son 10) :
+create profile perfila limit failed_login_attempts 2;
+
+create profile perfila limit
+failed_login_attempts 2
+sessions_per_user 3
+connect_time 5
+idle_time 2
+password_life_time 1
+password_grace_time 1/24
+;
+
+LIMITES:
+PUEDEN PONER UNLIMITED O DEFAULT
+1º NUMERO DE INTENTOS DE LOGIN
+2º SESIONES SIMULTANEAS DE USUARIO CONECTADO
+3º TIEMPO DE CONEXION EN MIN
+4º TIEMPO EN REPOSO MIN
+5º TIEMPO DE VIDA DE LA CONTRASEÑA -por defecto 180 dias (1/24-una hora)(1/12 dos horas)
+6º TIEMPO DE GRACIA- avisa que se caduca la contraseña
+Los limites que tienen que ver con la contraseña se activan inmediatamente pero el resto como el recurso 2 hay que activarlo con una configuracion del sistema:
+alter system set resource_limit = TRUE scope= both;
+
+( SCOPE - AMBITO aqui hay tres posiblilidades:
+1º MEMORY - en memoria mientras el ordenador esté activado y levantado el servidor, cuando lo apagues se desactivan los recursos
+2º SPFILE - en el fichero de paramentros, cuando  apagues el servidor y lo enciendas queda activado
+3º BOTH - las dos cosas
+
+)
+
+
+cambiar a un usuario de perfil:
+alter user romani profile perfila;
+
+borrar perfil- cuando borramos un perfil los usuario pasan al perfil DEFAULT :
+ drop profile perfila cascade;
+
+
+
+

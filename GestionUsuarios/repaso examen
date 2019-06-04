@@ -1,0 +1,198 @@
+*****************************
+**  REPASO DE EXAMEN   ** 
+*****************************
+Practico 7p:
+			  carga variable		
+	1.sqlldr  {
+			  carga posicional
+
+
+			exdp
+	2.datapump{
+			impdp
+
+Teoria 2p (10 preguntas):
+	tipo text
+	relacionar definiciones
+	
+!nota! vistas del diccionario de datos reconstruir los grant!!Lo mas dificil
+
+
+*****************************
+**  REPASO DE DATAPUMP     ** 
+*****************************
+1.Que es borrar una tabla (drop table)
+2.Eliminar los datos (delete table)
+3.Eliminar datos con condición (delete where)
+--------------------------------------
+Si cierras el terminal abrir el entorno 
+. oraenv
+orcl
+
+para salir exit
+
+--------------------------------------
+1.EXPORTACIÓN/IMPORTACIÓN:
+
+1.crear en el escritorio la carpeta alba(LINUX)
+
+	cd /Desktop
+	mkdir /home/oracle/Desktop/alba
+
+2.crear obxeto directory llamado aliasalba asociado a la carpeta(SYS)
+	create directory aliasalba as '/home/oracle/Desktop/alba';
+Directory created.
+(sys)
+vista directory :
+	describe dba_directories
+select directory_name from dba_directories 
+
+3.dar permisos a hr para usar dicho objeto directory (SYS)
+
+	grant read,write on directory aliasalba to HR;
+Grant succeeded.
+
+4.crear fichero de parametros para exportar tablas xogador y adestra completas(extructura y datos)(LINUX)
+
+Creado el fichero exportaciondostablas.txt en la carpeta alba.
+Dentro se mete el codigo:
+DUMPFILE=dostaboashr.dmp
+DIRECTORY=ALIASALBA
+TABLES=xogador,adestra
+
+5.dar la orden de exportación (LINUX)
+
+expdp hr/hr parfile=/home/oracle/Desktop/alba/exportaciondostablas.txt
+
+Entonces te crea en la carpeta alba el .dmp export.log
+
+6.borrar xogadores del equipo 'e1' y eliminar tabla adestra completa(HR)
+	rlwrap sqlplus hr/hr
+describe equipo para ver el nombre del atributo
+delete from xogador where codequ='e1';
+commit; para aplicar la orden si usamos dos terminales es importante porque si no se queda pillado esperando finalizar el comando
+
+borrar tabla adestra:
+drop table adestra; intrucciones no necesita commit
+commit;
+
+
+7.crear fichero de parametros para importar los xogadores del equipo 'e1' en la tabla xogadores (respetando los que ya están)
+importar completa la tabla adestra(LINUX)
+
+impdp hr/hr parfile=/home/oracle/Desktop/alba/importadostablas.txt
+
+
+crear el fichero imoprtaciondostablas.txt en la carpeta alba
+Dentro se mete el codigo:
+DUMPFILE=dostaboashr.dmp
+DIRECTORY=ALIASALBA
+TABLES=xogador, adestra
+TABLE_EXISTS_ACTION=APPEND 
+QUERY=XOGADOR:"where codequ='e1'" 
+
+
+
+8.dar orden de importacion (LINUX)
+impdp hr/hr parfile=/home/oracle/Desktop/alba/importaciondostablas.txt
+
+9.comprobar la recuperación(HR)
+select * from xogador;
+select * from adestra;
+
+****************************************
+** REPASO DE CARGA DE DATOS SQL-LOADER** 
+****************************************
+
+base : orcl
+usuario : hr/hr
+script a lanzar: hospitais.sql
+
+utilizando como ficheiro de datos de partida o ficheiro de texto hosp1variable.txt,  construe un so ficheiro de  parametros   (podes chamalo cargax.ctl) para:
+
+
+a) engadir os datos dos  hospitalizados polo medico  'm2'  de dito ficheiro  á taboa hosp1_medico2 .
+b) engadir os datos dos  hospitalizados polo medico 'm5'  de dito ficheiro  á taboa hosp1_medico5.
+
+********************************************
+TIPO DE DATOS VARIABLE
+crear el archivo .ctl e escribir en el :
+
+(recuerda si quieres poner null algun dato de enmedio poner dos separadores seguidos)
+
+LOAD DATA
+INFILE hosp1variable.txt
+INTO TABLE hosp1_medico2
+APPEND
+WHEN (CODM='m2')
+FIELDS TERMINATED BY '/'
+(se pone entre comillas simples el tipo de grafo que divide los datos)
+TRAILING NULLCOLS (los datos finales los pone null si no hay)
+(CODH,
+CODP ,
+NUMAS,
+CODM FILLER,(carga pero no lo utiliza)
+DATAI FILLER,
+DATAF "TO_DATE(:DATAF,'YYYYMMDD')"
+
+)
+
+INTO TABLE hosp1_medico5
+APPEND
+WHEN (CODM='m5')
+FIELDS TERMINATED BY '/'
+TRAILING NULLCOLS
+(CODH POSITION(1),(en las siguientes tablas hay que añadirlo para que vuelva arriba del todo si no no carga)
+CODP ,
+NUMAS ,
+CODM FILLER ,
+DATAI "TO_DATE(:DATAI,'YYYYMMDD')",
+DATAF FILLER
+)
+
+desde la ruta de la carpeta iniciar . oraenv y lanzar
+sqlldr nomeUsuario/contraseña control = fichero.ctl
+sqlldr hr/hr control=cargax.ctl
+
+volvemos a hr para comprobar si cargaron las tablas
+rlwrap sqlplus hr/hr
+
+
+
+*********************************************
+TIPO DE DATOS FIJOS
+igual que el anterior pero en vez de poner el separador se le da las posiciones que ocupa cada columna
+
+LOAD DATA
+INFILE hosp1fixo.txt
+INTO TABLE hosp1_medico2
+APPEND
+WHEN (CODM='m2')
+TRAILING NULLCOLS
+(CODH POSITION(1:4),
+CODP position(5:7),
+NUMAS POSITION(8:9),
+CODM FILLER POSITION(10:12),
+DATAF POSITION(21:28) "TO_DATE(:DATAF,'YYYYMMDD')"
+
+)
+
+INTO TABLE hosp1_medico5
+APPEND
+WHEN (CODM='m5')
+TRAILING NULLCOLS
+(CODH POSITION(1:4),
+CODP position(5:7),
+NUMAS POSITION(8:9),
+CODM FILLER POSITION(10:12),
+DATAI POSITION(13:20) "TO_DATE(:DATAI,'YYYYMMDD')"
+
+)
+
+
+
+
+
+
+
+

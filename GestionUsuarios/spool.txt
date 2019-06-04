@@ -1,0 +1,34 @@
+**************************************
+		SPOOL
+***************************************** 
+
+ABRIR EL SPOOL EN LA CARPETA DONDE QUIERAS GUARDAR ENTRE ''
+spool '/home/oracle/Desktop/ParenteFixo/proba.txt'
+
+
+GUARDA LAS ORDENES Y VISTAS QUE HICIMOS EN TERMINAL HASTA QUE 
+
+spool off
+
+
+set echo off--para que no se vean los comandos de la consulta
+set heading off -- para que no salgan las cabeceras
+set feedback off -- para que no salga el resumen 
+set linesize 1000 -- para tener todos los caracteres de la carga en la misma linea--
+set newpage none--que no meta cambios de pagina
+set trimspool on -- quita los blancos al final de la linea
+set termount off --no ve nada que salga en el terminal se usa para exportar tablas muy grandes y que no estorbe en el terminal 
+
+para completar los caracteres y hacer el guardado fijo 
+select (r o l segun rellena derecha o izquierda)rpad (nombrecampo, numerode espaciosque tiene el campo, relleno)
+select rpad (numero,3,'*') from parentes;
+select rpad ('ola',20,'*') from dual;
+
+
+NVL PONE UN CARACTER SI ES NULO SI NO RELLENA CON LO QUE TENGA
+> select nvl('ola','*') from dual;
+select nvl('ola','*') from dual;
+
+
+select data_length from user_tab_columns where table_name= 'PARENTES' and columname='APELIDOS';
+

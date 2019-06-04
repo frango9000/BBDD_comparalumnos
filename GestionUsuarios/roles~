@@ -1,0 +1,10 @@
+*****************************
+**         ROLES           ** 
+*****************************
+Agrupamiento de privilegios de sistema y objeto bajo un mismo nombre (el del rol).
+EN INGLES ROLE
+Un rol puede asignarse a un usuario o a otro rol.
+Un usuario puede tener varios roles simultaneamente.
+Un rol no pertenece a nadie.
+***********************
+

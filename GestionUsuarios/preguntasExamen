@@ -1,0 +1,52 @@
+
+*****************************
+**  PREGUNTAS DE EXAMEN   ** 
+*****************************
+
+
+	1.dada esta vista sabrias reconstruir la instruccion que la ejecuto
+ejemplo
+GRANTEE 		       OWNER
+------------------------------ ------------------------------
+TABLE_NAME		       COLUMN_NAME
+------------------------------ ------------------------------
+GRANTOR 		       PRIVILEGE				GRA
+------------------------------ ---------------------------------------- ---
+XOAN			       HR
+XOGADOR 		       SALARIO
+HR			       UPDATE					YES
+
+XOAN			       HR
+XOGADOR 		       NOMX
+HR			       INSERT					YES
+
+GRANTEE 		       OWNER
+------------------------------ ------------------------------
+TABLE_NAME		       COLUMN_NAME
+------------------------------ ------------------------------
+GRANTOR 		       PRIVILEGE				GRA
+------------------------------ ---------------------------------------- ---
+
+XOAN			       HR
+XOGADOR 		       CODX
+HR	
+
+grant update (salario), insert (codx, nomx) on xogador to xoan with grant option;
+que son 3 ordenes:
+grant update (salario) on xogador to to xoan with grant option;
+grant insert (codx) on xogador to xoan with grant option;
+grant insert (nomx) on xogador to xoan with grant option;
+
+
+	2.cuando pierden los privilegios en cascada??
+cuando son de objeto, eso si, si ya empezó a insertar algo deja q lo inserte ya que es una orden en proceso.
+
+*****************************
+**  ERRORES   ** 
+*****************************
+NO DEJA ELIMINAR POR COLUMNA
+ERROR at line 1:
+ORA-01750: UPDATE/REFERENCES may only be REVOKEd from the whole table, not by column
+
+
+

@@ -1,0 +1,16 @@
+;;; 
+Import: Release 11.2.0.1.0 - Production on Tue Jun 4 14:23:48 2019
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+Master table "HR"."SYS_IMPORT_TABLE_01" successfully loaded/unloaded
+Starting "HR"."SYS_IMPORT_TABLE_01":  hr/******** parfile=/home/oracle/Desktop/a/importahrvl.txt 
+Processing object type TABLE_EXPORT/TABLE/TABLE
+ORA-39152: Table "HR"."VISITAS" exists. Data will be appended to existing table but all dependent metadata will be skipped due to table_exists_action of append
+Processing object type TABLE_EXPORT/TABLE/TABLE_DATA
+. . imported "HR"."VISITAS"                              6.617 KB       3 out of 15 rows
+Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type TABLE_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Job "HR"."SYS_IMPORT_TABLE_01" completed with 1 error(s) at 14:24:25

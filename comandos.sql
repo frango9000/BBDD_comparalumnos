@@ -409,6 +409,8 @@ select status, sequence#, archived,group# from v$log;
 
 forzar cambio de grupo
 
+forzar reciclado de redologs(archivelogs)
+ alter system switch logfile;
 
 --seleccionar todos los objetos de un usuario(hr)
 select object_name from dba_objects where owner='HR';
@@ -448,6 +450,8 @@ select log_mode from v$database;
 
 --hacer un backup
 abrir un nuevo terminal
+. oraenv
+bcopias
 rman target sys/oracle
 backup database tag='COPIAPRIMEIRA';
 
@@ -456,6 +460,32 @@ backup database tag='COPIAPRIMEIRA';
 rman target sys/oracle
 restore databse
 recover database
+
+
+ver en que base de datos estamos
+select value from v$system_parameter where name='db_name'; 
+
+ver el estado de la base de datos
+select status from v$instance;
+
+ver archivelog status
+select LOG_MODE from v$database;
+
+ ************************* Copia Incremental ************************* 
+
+la copia inicial es de nivel 0
+el resto son de nivel 1
+
+rman> backup incremental level 0 database tag = 'COPIA1LEVEL0';
+
+rman> backup incremental level 1 database tag = 'INCREMENTAL1';
+
+rman> backup incremental level 1 database tag = 'INCREMENTAL2';
+
+recuperar: 
+restore database;  --  Recupera de la nivel 0
+recover database;  -- restaura la base con el nivel 0 y los nivel 1
+
 
 
  ************************* Q/A ************************* 

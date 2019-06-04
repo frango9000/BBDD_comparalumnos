@@ -1,0 +1,117 @@
+
+*****************************
+**  DICCIONARIO DE DATOS   ** 
+*****************************
+
+*************
+para hacer la linea mas grande:
+> set linesize 10000;
+
+******************
+tablas de consulta que se ven sobre vistas para no poder modificar las tablas de datos. Estas vistas solo pueden ser vistas por el dba (administrador)
+
+
+dba_users
+si quiero consultar el perfil de un usuario:
+select profile from dba_users where username='ROMANI';
+ATENCION!!!ORACLE GUARDA EN MAYUSCULAS LOS NOMBRES !c
+
+consultar perfil
+select resource_name, limit from dba_profiles where profile ='DEFAULT';
+
+***************************
+**         Views         ** 
+***************************
+ADMINISTRADOR
+DBA_ SOLO MUESTRA A LOS ADMIN DATA_BASE_ADMINISTRATOR
+dba_users: informacion sobre los usuarios solo puede ver admin
+dba_profiles:informacion sobre los perfiles q puede ver el admin
+dba_sys_privs: informacion sobre los privilegios de cualquier usuario q solo puede ver el admin
+dba_tab_privs: privilegios que tienen todos los usuarios en cada tabla
+dba_col_privs: privilegios que tienen los usuarios para cada columna
+
+ *************************
+
+USUARIO
+user_sys_privs:privilegios que tienen un usuario los ve el propio usuario y puede ver si puede administrar o si tiene un privilegio repetido
+session_privs: privilegios del usuario
+user_col_privs: los privilegios sobre que columnas tiene cada usuario
+
+ select object_name from dba_objects where owner='USUARIO' and object_type='MAYUSCULASEL TIPO QUE QUIERAS';
+para ver todo lo que tiene asignado un usuario 
+
+ ************************
+ROLE
+dba_role_privs: puedes ver dando usuario grantee='NOME'O granted_role='nombre rol'
+PARA VER QUE PRIVILEGIOS TIENE EL ROL: se trata como si fuera un usuario al igual para dar los privilegios
+select privilege from dba_sys_privs where grantee'ROLA';
+PRIVILEGIO DE OBJETO:
+select privilege from dba_tab_privs where grantee='rol';
+
+***************************
+**       COMMIT          ** 
+***************************
+No se dan por hechos los cambios hasta que se hace un commit, si trabajas en la misma tabla en dos terminales no se dan por hechos los cambios sin hacer el commit
+
+***************************
+**       tablas          ** 
+***************************
+cambiar un campo para que sea primary key:
+alter table proba add primary key (codigo);
+
+añadir una columna nueva:
+alter table proba add  nome varchar (15);
+
+cambiar el tamaño de un campo, no suele aceptar cambios de tipo:
+ alter table proba modify  nome varchar (20);
+
+borrar:
+alter table proba drop primary key;+ cascade para borrar en todas las tablas q dependan de ella
+
+
+
+***************************
+**  Gestion de usuario   ** 
+***************************
+iniciar como administrador 
+
+
+crear usuario:
+create user romani identified by r quota 20m on users;
+--quota da espacio para guardar datos
+
+para que introduzca una nueva contraseña cuando se conecte:
+password expire;
+
+permisos:
+grant create session, create table to romani;
+
+conectarse:
+conn romani/r;
+
+ver usuario conectado;
+show user;
+
+crear una tabla:
+create table proba(codigo number);
+insert into proba values(1);
+
+borrar usuario:
+drop user romani cascade;
+
+desbloquear usuario- desde administrador:
+alter user romani account unlock;
+
+cambiar a un usuario de perfil:
+alter user romani profile perfila;
+
+CAMBIAR LA CONTRASEÑA:
+alter user usuario identified by contraseña
+
+conectarse con usuario admin :
+conn sys/oracle as sysdba;
+
+quitar permisos de conexion:
+ revoke create session from romani;
+
+
