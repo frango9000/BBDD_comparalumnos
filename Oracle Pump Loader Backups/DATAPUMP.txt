@@ -1,0 +1,61 @@
+*******************************************************************************************************
+									DATAPUMP
+*******************************************************************************************************
+expdp: extraer la extructura e/o datos de un esquema de un usuario oracle a un fichero .DMP encriptado
+impdp: importa la extructura e/o datos de un fichero .DMP hacia un esquema de un usuario oracle 
+
+**********************************************PREVIO***************************************************
+1)-DEFINIR RUTA ABSOLUTA A DONDE DIRECIONAREMOS LA EXPORTACION (crear una carpeta en Desktop)
+ mkdir /home/oracle/Desktop/<CARPETA>
+
+2)-CREAR ALIAS (object directory) asociando la ruta:
+SYS:
+	CREATE DIRECTORY <NOMBRE> as '/home/oracle/Desktop/<CARPETA>';
+
+3)-OTORGAR PRIVILEGIOS DE LECTURA Y ESCRITURA al usuario para que pueda usar el alias:
+SYS: 
+	GRANT READ,WRITE ON DIRECTORY <NOMBREDIRECTORIO> TO <NOMBREUSUSUARIO>;
+
+
+
+*********************************************EXPORTACION********************************************
+1)- FICHERO DE PARAMETROS .TXT:
+crear un <FICHERO.txt> Dentro de la carpeta creada
+
+-------------------------------------------------------EJEMPLO----------------------------------------------------
+dumpfile=<NOMBRECOPIA>.dmp
+directory=<NOMBREALIAS>
+
+*OTRAS OPCIONES DE IMPORTACION*
+TABLES=<NOMBRETABLA1>,<NOMBRETABLA2>... <<FILTRAR IMPORTACION POR TABLAS 
+----------------------------------------------------------------------------------------------------------------------
+
+2)- ABRIR TERMIAL (. oraenv)  ORDEN EXPORTACION
+expdp <USUARIO>/<CONTRASEÑA> parfile=/home/oracle/Desktop/<CARPETA>/<FICHERO.txt>
+*******************************************************************************************************
+
+
+
+*********************************************IMPORTACION*********************************************
+1)- crear un <FICHERO.txt> Dentro de la carpeta creada
+
+-------------------------------------------------------EJEMPLO-----------------------------------------------------
+dumpfile=<NOMBRECOPIA>.dmp
+directory=<NOMBREALIAS>
+
+*OTRAS OPCIONES DE IMPORTACION*
+TABLES=<NOMBRETABLA1>,<NOMBRETABLA2>... <<FILTRAR IMPORTACION POR TABLAS 
+
+TABLE_EXISTS_ACTION=APPEND <<ADICIONA DATOS
+TABLE_EXISTS_ACTION=REPLACE <<REPLAZA TABLA
+
+CONTENT=DATA_ONLY <<COPIA SOLO EL CONTENIDO DE LA TABLA
+CONTENT=METADATA_ONLY <<COPIA SOLO LA ESTRUCTURA DE LA TABLA
+CONTENT= ALL  <<COPIA TODO "OPCION POR DEFECTO"
+
+QUERY=<NOMBRETABLA1>:"where <CAMPO>='<VALOR>'"  << FILTRA EL CONTENIDO A IMPORTAR
+------------------------------------------------------------------------------------------------------------------
+
+2)- ABRIR TERMIAL (. oraenv)  ORDEN IMPORTACION
+impdp <USUARIO>/<CONTRASEÑA> parfile=/home/oracle/Desktop/<CARPETA>/<FICHERO.txt>
+******************************************************************************************************
